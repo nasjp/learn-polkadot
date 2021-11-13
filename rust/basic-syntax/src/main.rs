@@ -1,35 +1,24 @@
-// Declare Car struct to describe vehicle with four named fields
-#[derive(Debug)]
-struct Car {
-    color: String,
-    transmission: Transmission,
-    convertible: bool,
-    mileage: u32,
-}
+mod authentication {
+    pub struct User {
+        username: String,
+        password_hash: u64,
+    }
 
-// Declare enum for Car transmission type
-#[derive(PartialEq, Debug)]
-enum Transmission {
-    Manual,
-    SemiAuto,
-    Automatic,
-}
-
-fn car_factory(color: String, transmission: Transmission, convertible: bool) -> Car {
-    Car {
-        color,
-        transmission,
-        convertible,
-        mileage: 0,
+    impl User {
+        pub fn new(username: &str, password: &str) -> User {
+            User {
+                username: username.to_string(),
+                password_hash: hash_password(password),
+            }
+        }
+    }
+    fn hash_password(input: &str) -> u64 { /*...*/
     }
 }
 
 fn main() {
-    let car1 = car_factory(String::from("red"), Transmission::Manual, true);
-    let car2 = car_factory(String::from("blue"), Transmission::SemiAuto, true);
-    let car3 = car_factory(String::from("green"), Transmission::Automatic, true);
+    let user = authentication::User::new("jeremy", "super-secret");
 
-    println!("{:?}", car1);
-    println!("{:?}", car2);
-    println!("{:?}", car3);
+    println!("The username is: {}", user.username);
+    println!("The password is: {}", user.password_hash);
 }
